@@ -1,52 +1,53 @@
-Airavat – Individual Elephant Identification System
+# Airavat – Individual Elephant Identification System
 
-An offline desktop application for identifying individual elephants from photographs.
-Built with Electron (desktop UI) and a Python backend, it runs entirely on your local machine — no internet needed after installation.
+**Airavat** is an offline desktop application for identifying individual elephants from photographs.
+It uses deep learning models trained on distinct physical features and runs entirely on your local machine – no internet needed after download.
 
-Key Features
+---
 
-Offline Operation – Processes images without an internet connection.
+## 📥 Download & Run
 
-Two AI Models (selectable in the interface):
+1. **Go to the [Releases](../../releases) page** of this repository.
+2. Download **`Airavat-win64.zip`** (do not download just the `.exe`).
+3. Extract the ZIP anywhere on your computer.
+4. Open the extracted folder.
+5. Double-click `Airavat.exe` to start the app.
 
-Siamese Neural Network – Compares headshots.
+> **Note:**
+> - The `.exe` must be run from inside its extracted folder – it needs the included `resources/` directory.
+> - If you only run the `.exe` from GitHub without the rest of the files, you’ll see an ICU-related error.
 
-YOLOv8 – Detects and matches right ear patterns.
+---
 
-High-Volume Processing – Works with image datasets up to ~200 GB (ZIP format).
+## 💡 Features
 
-Single Photo Search – Check if a specific elephant exists in your dataset.
+- **Offline Identification** – works without internet after installation.
+- **Two AI Models** –
+  - Siamese neural network for head-based matching.
+  - YOLOv8 for right ear pattern recognition.
+- **Choose Your Mode** – run either model independently via the UI.
+- **High-Volume Support** – process datasets up to **200 GB** (requires ~250 GB free disk space for extraction + results).
+- **Single Photo Search** – check if a specific elephant exists in your dataset.
+- **Separate Model Testing** – run models independently for research and performance comparison.
 
-Model Testing – Run Siamese or YOLO independently for analysis.
+---
 
-Download & Run
+## 🛠 System Requirements
 
-Go to the Releases section.
+- **OS:** Windows 10/11 64-bit
+- **RAM:** 8 GB minimum (16 GB+ recommended for large datasets)
+- **Disk Space:** At least 250 GB free if processing a full 200 GB dataset
+- **GPU:** Optional – the app uses CPU if CUDA is not available.
 
-Download the latest Airavat-Setup.exe.
+---
 
-Run the installer and launch Airavat.
+## 🔍 Background
 
-No special hardware is required — runs on CPU if no GPU is available.
+Airavat supports elephant conservation efforts by enabling researchers to track and monitor individuals more efficiently.
+Its dual-model approach increases reliability by combining facial and ear pattern recognition, all without requiring constant internet connectivity.
 
-System Requirements
+---
 
-OS: Windows 10/11 (64-bit)
+## 📜 License
 
-RAM: 8 GB minimum (16 GB recommended for large datasets)
-
-Disk Space: At least 250 GB free for maximum dataset size (200 GB ZIP + extraction + results)
-
-GPU: Optional — NVIDIA GPU speeds up processing, but CPU-only works too
-
-Expected Use
-
-Identify elephants in bulk photo archives.
-
-Compare model outputs for research.
-
-Support conservation by enabling offline tracking in the field.
-
-License
-
-MIT License – free to use, modify, and share.
+MIT License – see [LICENSE](LICENSE) for details.
