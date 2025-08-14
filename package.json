@@ -8,49 +8,23 @@
     "dev": "electron . --dev",
     "electron": "electron .",
     "setup": "node src/main/model-manager.js --download",
-    "build": "electron-builder",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "package:win": "electron-packager . Airavat --overwrite --platform=win32 --arch=x64 --icon=assets/icon.ico --asar --out=release-builds",
+    "package:mac": "electron-packager . Airavat --overwrite --platform=darwin --arch=x64 --icon=assets/icon.icns --asar --out=release-builds",
+    "package:linux": "electron-packager . Airavat --overwrite --platform=linux --arch=x64 --icon=assets/icon.png --asar --out=release-builds"
   },
-  "keywords": ["elephant", "detection", "yolo", "siamese", "offline", "electron"],
-  "author": "Your Name",
+  "keywords": [
+    "elephant",
+    "detection",
+    "yolo",
+    "siamese",
+    "offline",
+    "electron"
+  ],
+  "author": "Kartik Malik",
   "license": "MIT",
-
-  "build": {
-    "appId": "com.yourname.airavat",
-    "productName": "Airavat",
-    "directories": {
-      "output": "dist"
-    },
-    "files": [
-      "src/**/*",
-      "assets/**/*",
-      "node_modules/**/*"
-    ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": ["x64"]
-        }
-      ],
-      "icon": "assets/icon.ico"
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
-    }
-  },
-
   "devDependencies": {
     "electron": "^37.2.6",
-    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2",
     "electron-reload": "^2.0.0-alpha.1"
   },
   "dependencies": {
