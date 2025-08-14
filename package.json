@@ -1,0 +1,63 @@
+{
+  "name": "airavat-desktop",
+  "version": "1.0.0",
+  "description": "Offline desktop elephant-detection and identification tool",
+  "main": "./src/main/main.js",
+  "homepage": ".",
+  "scripts": {
+    "dev": "electron . --dev",
+    "electron": "electron .",
+    "setup": "node src/main/model-manager.js --download",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "keywords": ["elephant", "detection", "yolo", "siamese", "offline", "electron"],
+  "author": "Your Name",
+  "license": "MIT",
+
+  "build": {
+    "appId": "com.yourname.airavat",
+    "productName": "Airavat",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12",
+    "electron-reload": "^2.0.0-alpha.1"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "axios": "^1.11.0",
+    "form-data": "^4.0.4",
+    "fs-extra": "^11.3.1",
+    "glob": "^10.4.5"
+  }
+}
