@@ -1,0 +1,50 @@
+# Name of your workflow
+name: Build Release
+
+# UPDATED: Controls when the workflow will run
+on:
+  # Triggers the workflow when you push a tag that starts with 'v' (e.g., v1, v1.0.1)
+  push:
+    tags:
+      - 'v*'
+
+  # Allows you to run this workflow manually from the Actions tab on GitHub
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs
+jobs:
+  build-windows:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # 1. Checks-out your repository's code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Sets up Node.js on the runner
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      # 3. Installs your application's dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Runs the build script. This still creates the default filename.
+      - name: Build Windows App
+        run: npm run build:win
+
+      # 5. NEW: Rename the installer to include the git tag version
+      - name: Rename Installer
+        run: Move-Item -Path "dist/Airavat Setup 1.0.0.exe" -Destination "dist/Airavat-Setup-${{ github.ref_name }}.exe"
+
+      # 6. UPDATED: Upload the renamed installer as a downloadable artifact
+      - name: Upload Release Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Airavat-Installer-${{ github.ref_name }}
+          path: dist/Airavat-Setup-${{ github.ref_name }}.exe
