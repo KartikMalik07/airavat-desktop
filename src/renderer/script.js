@@ -287,6 +287,24 @@ function setupEventListeners() {
         // Control buttons
         if (processBtn) processBtn.addEventListener('click', processFiles);
 
+        const dropZone = document.getElementById('dropZone');
+if (dropZone) {
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files); // Reuse your handleFiles function
+    });
+}
+
         const clearFilesBtn = getElement('clearFilesBtn');
         const clearResultsBtn = getElement('clearResultsBtn');
         const downloadResultsBtn = getElement('downloadResultsBtn');

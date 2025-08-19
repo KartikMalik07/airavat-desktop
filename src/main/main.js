@@ -3,9 +3,11 @@ const path = require('path');
 const fs = require('fs-extra');
 const { glob } = require('glob');
 const BackendProcessor = require('./backend-processor');
+const { spawn } = require("child_process");
 
 let mainWindow;
 let backendProcessor;
+
 
 // Enable live reload for development
 if (process.argv.includes('--dev')) {
@@ -45,7 +47,34 @@ function createWindow() {
         mainWindow.webContents.openDevTools();
     }
 }
+app.on("ready", () => {
+  const isDev = !app.isPackaged;
+  const backendPath = isDev
+    ? path.join(__dirname, "../../backend/backend.exe") // during dev
+    : path.join(process.resourcesPath, "app","backend", "backend.exe"); // after packaging
 
+  console.log("Backend path:", backendPath);
+
+  backendProcess = spawn(backendPath);
+
+  backendProcess.stdout.on("data", (data) => {
+    console.log(`Backend: ${data}`);
+  });
+
+  backendProcess.stderr.on("data", (data) => {
+    console.error(`Backend Error: ${data}`);
+  });
+
+  backendProcess.on("close", (code) => {
+    console.log(`Backend exited with code ${code}`);
+  });
+
+  createWindow();
+});
+
+app.on("will-quit", () => {
+  if (backendProcess) backendProcess.kill();
+});
 async function checkBackendStatus() {
     try {
         backendProcessor = new BackendProcessor();

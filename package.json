@@ -8,7 +8,7 @@
     "dev": "electron . --dev",
     "electron": "electron .",
     "setup": "node src/main/model-manager.js --download",
-    "package:win": "electron-packager . Airavat --overwrite --platform=win32 --arch=x64 --icon=assets/icon.ico --asar --out=release-builds",
+    "package:win": "electron-packager . Airavat --overwrite --platform=win32 --arch=x64 --icon=assets/icon.ico --asar --out=release-builds --extra-resource=backend",
     "package:mac": "electron-packager . Airavat --overwrite --platform=darwin --arch=x64 --icon=assets/icon.icns --asar --out=release-builds",
     "package:linux": "electron-packager . Airavat --overwrite --platform=linux --arch=x64 --icon=assets/icon.png --asar --out=release-builds"
   },
@@ -32,6 +32,7 @@
     "axios": "^1.11.0",
     "form-data": "^4.0.4",
     "fs-extra": "^11.3.1",
-    "glob": "^10.4.5"
+    "glob": "^10.4.5",
+    "spawn-rx": "^1.0.0"
   }
 }

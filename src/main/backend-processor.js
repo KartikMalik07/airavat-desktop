@@ -13,37 +13,30 @@ class BackendProcessor {
     }
 
     async initialize() {
-        try {
-            console.log('Initializing backend connection...');
+    try {
+        console.log('Initializing backend connection...');
 
-            const urls = [BACKEND_CONFIG.RENDER_URL ,BACKEND_CONFIG.LOCAL_URL];
+        const url = BACKEND_CONFIG.LOCAL_URL; // Only check local backend
 
-            for (const url of urls) {
-                try {
-                    const response = await axios.get(
-                        `${url}${BACKEND_CONFIG.ENDPOINTS.HEALTH}`,
-                        { timeout: BACKEND_CONFIG.TIMEOUT }
-                    );
+        const response = await axios.get(
+            `${url}${BACKEND_CONFIG.ENDPOINTS.HEALTH}`,
+            { timeout: BACKEND_CONFIG.TIMEOUT }
+        );
 
-                    // Check if the response indicates the backend is healthy
-                    if (response.status === 200) {
-                        this.baseUrl = url;
-                        this.isInitialized = true;
-                        console.log(`✅ Connected to backend at: ${url}`);
-                        return;
-                    }
-                } catch (error) {
-                    console.log(`❌ Failed to connect to ${url}: ${error.message}`);
-                }
-            }
-
-            throw new Error('Could not connect to any backend server');
-
-        } catch (error) {
-            console.error('Failed to initialize backend connection:', error);
-            throw error;
+        if (response.status === 200) {
+            this.baseUrl = url;
+            this.isInitialized = true;
+            console.log(`✅ Connected to embedded backend at: ${url}`);
+            return;
         }
+
+        throw new Error('Could not connect to embedded backend server');
+
+    } catch (error) {
+        console.error('Failed to initialize backend connection:', error);
+        throw error;
     }
+}
 
     async processFile(filePath, options = {}) {
         if (!this.isInitialized) {
